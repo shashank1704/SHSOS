@@ -1,10 +1,27 @@
-﻿namespace SHSOS.Data
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using SHSOS.Models;
+namespace SHSOS.Data
 {
-    public class SHSOSDb
+    public class SHSOSDb:DbContext
     {
-        public int Id { get; set; }
+        public SHSOSDb(DbContextOptions<SHSOSDb> options) : base(options)
+        {
+        }
 
-        public string Name { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Additional model configuration can go here
+        }
+        DbSet<Hospitals> Hospital { get; set; }
+
+        DbSet<Departments> Department { get; set; }
+
+
+
+
 
     }
+   
 }
