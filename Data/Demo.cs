@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace SHSOS.Data
+﻿namespace SHSOS.Data
 {
     public class Demo
     {
