@@ -18,6 +18,8 @@ namespace SHSOS.Data
 
         DbSet<Departments> Department { get; set; }
 
+        DbSet<WaterConsumption> WaterConsumption { get; set; }
+
 
 
 
