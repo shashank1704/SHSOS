@@ -1,8 +1,13 @@
-﻿namespace SHSOS.Data
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+namespace SHSOS.Data
 {
-    public class SHSOSDb
+    public class SHSOSDb:DbContext
     {
-        public int Id { get; set; }
-        public string Name { get; set; }        
+        public SHSOSDb(DbContextOptions<SHSOSDb> options) : base(options)
+        {
+        }
+      
     }
+   
 }
