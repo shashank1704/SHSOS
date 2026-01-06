@@ -2,10 +2,10 @@
 {
     public class Departments
     {
-        int DepartmentID { get; set; }
-        int HospitalID { get; set; }
-        string DepartmentName { get; set; }
-        int FloorNumber { get; set; }
-        int IsActive { get; set; }
+        public int DepartmentID { get; set; }
+        public int HospitalID { get; set; }
+        public string DepartmentName { get; set; }
+        public int FloorNumber { get; set; }
+        public int IsActive { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class Hospitals
     {
-        int HospitalID { get; set; }
-        string HospitalName { get; set; }
-        string Location { get; set; }
+        public int HospitalID { get; set; }
+        public string HospitalName { get; set; }
+        public string Location { get; set; }
     }
 }
