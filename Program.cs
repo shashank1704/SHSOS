@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using SHSOS.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Registers EF Core with SQL Server
+builder.Services.AddDbContext<SHSOSDb>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("SHSOS")
+    )
+);
 
 var app = builder.Build();
 
