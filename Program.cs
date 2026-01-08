@@ -3,27 +3,35 @@ using SHSOS.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 // Registers EF Core with SQL Server
 builder.Services.AddDbContext<SHSOSDb>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("SHSOS")
-    )
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SHSOS"))
 );
+
+// Allow front-end origin(s) during development — replace with your front-end origin(s)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+        policy.AllowAnyMethod()
+              .AllowAnyHeader()
+              .WithOrigins("http://localhost:3000", "https://localhost:3001"));
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable Swagger UI unconditionally and serve it at the application root so opening the browser shows the UI.
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SHSOS API v1");
+    c.RoutePrefix = string.Empty; // Serve Swagger UI at "/" for quick testing
+});
+
+app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -47,3 +55,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//```
+// dotnet restore
+// dotnet build
+//```

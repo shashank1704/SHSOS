@@ -5,8 +5,8 @@ using SHSOS.Models;
 
 namespace SHSOS.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class WasteManagementController : ControllerBase
     {
         private readonly SHSOSDb _context;
@@ -17,9 +17,22 @@ namespace SHSOS.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WasteManagement>>> GetWasteManagement()
+        [HttpGet("/api/waste")]
+        [HttpGet("/waste")]
+        public async Task<ActionResult<IEnumerable<WasteManagement>>> Get()
         {
-            return await _context.WasteManagement.ToListAsync();
+            var list = await _context.WasteManagement.AsNoTracking().ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("{id:int}")]
+        [HttpGet("/api/waste/{id:int}")]
+        [HttpGet("/waste/{id:int}")]
+        public async Task<ActionResult<WasteManagement>> Get(int id)
+        {
+            var item = await _context.WasteManagement.FindAsync(id);
+            if (item == null) return NotFound();
+            return Ok(item);
         }
     }
 }

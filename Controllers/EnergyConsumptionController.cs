@@ -5,8 +5,8 @@ using SHSOS.Models;
 
 namespace SHSOS.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class EnergyConsumptionController : ControllerBase
     {
         private readonly SHSOSDb _context;
@@ -17,9 +17,22 @@ namespace SHSOS.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EnergyConsumption>>> GetEnergyConsumption()
+        [HttpGet("/api/energy")]
+        [HttpGet("/energy")]
+        public async Task<ActionResult<IEnumerable<EnergyConsumption>>> Get()
         {
-            return await _context.EnergyConsumption.ToListAsync();
+            var list = await _context.EnergyConsumption.AsNoTracking().ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("{id:int}")]
+        [HttpGet("/api/energy/{id:int}")]
+        [HttpGet("/energy/{id:int}")]
+        public async Task<ActionResult<EnergyConsumption>> Get(int id)
+        {
+            var item = await _context.EnergyConsumption.FindAsync(id);
+            if (item == null) return NotFound();
+            return Ok(item);
         }
     }
 }

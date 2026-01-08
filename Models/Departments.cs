@@ -1,7 +1,9 @@
-﻿namespace SHSOS.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace SHSOS.Models
 {
     public class Departments
     {
+        [Key]
         public int DepartmentID { get; set; }
         public int HospitalID { get; set; }
         public required string DepartmentName { get; set; }

@@ -5,8 +5,8 @@ using SHSOS.Models;
 
 namespace SHSOS.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class WaterConsumptionController : ControllerBase
     {
         private readonly SHSOSDb _context;
@@ -16,10 +16,26 @@ namespace SHSOS.Controllers
             _context = context;
         }
 
+        // GET /api/WaterConsumption
+        // Also reachable at /api/water and /water
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WaterConsumption>>> GetWaterConsumption()
+        [HttpGet("/api/water")]
+        [HttpGet("/water")]
+        public async Task<ActionResult<IEnumerable<WaterConsumption>>> Get()
         {
-            return await _context.WaterConsumption.ToListAsync();
+            var list = await _context.WaterConsumption.AsNoTracking().ToListAsync();
+            return Ok(list);
+        }
+
+        // GET /api/WaterConsumption/{id}
+        [HttpGet("{id:int}")]
+        [HttpGet("/api/water/{id:int}")]
+        [HttpGet("/water/{id:int}")]
+        public async Task<ActionResult<WaterConsumption>> Get(int id)
+        {
+            var item = await _context.WaterConsumption.FindAsync(id);
+            if (item == null) return NotFound();
+            return Ok(item);
         }
     }
 }

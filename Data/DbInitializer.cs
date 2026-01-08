@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SHSOS.Models;
 
 namespace SHSOS.Data
@@ -9,7 +10,7 @@ namespace SHSOS.Data
             context.Database.EnsureCreated();
 
             // Look for any hospitals.
-            if (context.Hospital.Any())
+            if (context.Hospitals.Any())
             {
                 return;   // DB has been seeded
             }
@@ -18,7 +19,7 @@ namespace SHSOS.Data
             {
                 new Hospitals { HospitalName = "City General Hospital", Location = "Downtown Metro" }
             };
-            context.Hospital.AddRange(hospitals);
+            context.Hospitals.AddRange(hospitals);
             context.SaveChanges();
 
             var departments = new Departments[]
@@ -27,7 +28,7 @@ namespace SHSOS.Data
                 new Departments { DepartmentName = "Neurology", HospitalID = hospitals[0].HospitalID, FloorNumber = 2 }, // Removed Wing
                 new Departments { DepartmentName = "Emergency", HospitalID = hospitals[0].HospitalID, FloorNumber = 0 }  // Removed Wing
             };
-            context.Department.AddRange(departments);
+            context.Departments.AddRange(departments);
             context.SaveChanges();
 
             // Seed Water Consumption
