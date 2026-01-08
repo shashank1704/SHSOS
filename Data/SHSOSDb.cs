@@ -12,17 +12,17 @@ namespace SHSOS.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Additional model configuration can go here
+            modelBuilder.HasDefaultSchema("shsos");
         }
-        DbSet<Hospitals> Hospital { get; set; }
+        public DbSet<Hospitals> Hospital { get; set; }
 
-        DbSet<Departments> Department { get; set; }
+        public DbSet<Departments> Department { get; set; }
 
-        DbSet<WaterConsumption> WaterConsumption { get; set; }
+        public DbSet<WaterConsumption> WaterConsumption { get; set; }
 
+        public DbSet<EnergyConsumption> EnergyConsumption { get; set; }
 
-
-
+        public DbSet<WasteManagement> WasteManagement { get; set; }
 
     }
    

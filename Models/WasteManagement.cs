@@ -8,7 +8,7 @@ namespace SHSOS.Models
 
         public int DepartmentID { get; set; }
 
-        public string WasteType { get; set; }
+        public required string WasteType { get; set; }
 
         public string? WasteCategory { get; set; }
 
